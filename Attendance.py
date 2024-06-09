@@ -57,17 +57,21 @@ with col2:
         return encodelist
 
     def markattendance(name):
-        with open('Attendance.csv', 'r+') as f:
-            mydatalist= f.readlines()
-            namelist=[]
-            for line in mydatalist:
-                entry=line.split(',')
-                namelist.append(entry[0])
+        now=datetime.now()
+        current_date = now.strftime('%d-%m-%y')
+        filename = f'Attendance_{current_date}.csv'
+        if not os.path.isfile(filename):
+            with open(filename, 'w') as f:
+                f.write('Name,Time\n')  # Write header if file doesn't exist
+        
+        with open(filename, 'r+') as f:
+            mydatalist = f.readlines()
+            namelist = [entry.split(',')[0] for entry in mydatalist]
+            
             if name not in namelist:
-                now=datetime.now()
-                dtstring=now.strftime('%H:%M:%S')
-                st.write("Marked attendance for ", name, "at time ", dtstring)
-                f.writelines(f'\n{name},{dtstring}')
+                dtstring = now.strftime('%H:%M:%S')
+                f.write(f'{name},{dtstring}\n')
+                st.write("Marked attendance for", name, "at time", dtstring)
 
 
 
