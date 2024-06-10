@@ -35,17 +35,17 @@ with col2:
 
     run=st.checkbox('Run')
     Frame_window=st.image([])
-    path='Attendanceimages'
+    path='imagess'
     images=[]
     names=[]
     list=os.listdir(path)
+    print(list)
 
 
     for c in list:
         currentimage=cv2.imread(f'{path}/{c}')
         images.append(currentimage)
         names.append(os.path.splitext(c)[0])
-
 
 
     def findencoding(images):
